@@ -1,0 +1,26 @@
+{
+  "name": "react-socketio-chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/iamgutz/react-socketio-chat.git",
+  "author": "Michael Gutierrez <iamgutz@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot --port 9000",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "webpack": "^5.10.2",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^4.5.0"
+  }
+}
