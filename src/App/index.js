@@ -1,5 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import Chat from '../containers/Chat';
+import Login from '../containers/Login';
+import { initApp } from './actions';
+import { getSessionAuthenticated } from './session/selectors';
 
-const App = () => (<h1>Welcome to App</h1>);
+const App = ({
+  isAuthenticated,
+  onEnter,
+}) => {
+  useEffect(() => {
+    onEnter();
+  }, []);
 
-export default App;
+  if (!isAuthenticated) {
+    return (<Login />);
+  }
+  return (<Chat />);
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: getSessionAuthenticated(state),
+});
+
+const mapDispatchToProps = {
+  onEnter: initApp,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,28 +1,47 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var srcPath = path.join(__dirname, 'src');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'static/js/main.chunk.[chunkhash].js'
-  },
-  resolve: {
-    modules: [srcPath, 'node_modules'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js|\.jsx$/,
-        exclude: /node_modules/,
-        use: 'babel-loader',
-      },
+const srcPath = path.join(__dirname, 'src');
+
+module.exports = env => {
+  const isProduction = env === 'production';
+
+  return {
+    entry: './src/index.js',
+    output: {
+      path: path.resolve(__dirname, 'build'),
+      filename: 'static/js/main.chunk.[chunkhash].js',
+    },
+    resolve: {
+      modules: [srcPath, 'node_modules'],
+    },
+    externals: {
+      document: 'document',
+      localStorage: 'localStorage',
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js|\.jsx$/,
+          exclude: /node_modules/,
+          use: 'babel-loader',
+        },
+      ],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: './public/index.html',
+      }),
     ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
-  ],
+    devServer: {
+      proxy: {
+        '/socket.io': {
+          target: 'http://localhost:9001',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
+    devtool: isProduction ? undefined : 'eval-source-map',
+  };
 };
