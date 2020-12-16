@@ -36,15 +36,10 @@ function* signOffWatcher() {
   yield put(clearSession());
 }
 
-function* signOffSuccessWatcher() {
-  
-}
-
 export default function* loginSagas() {
   yield all([
     takeEvery(ACTIONS.SIGN_IN, signInWatcher),
     takeEvery(ACTIONS.SIGN_IN_SUCCESS, signInSuccessWatcher),
     takeEvery(ACTIONS.SIGN_OFF, signOffWatcher),
-    takeEvery(ACTIONS.SIGN_OFF_SUCCESS, signOffSuccessWatcher),
   ]);
 }

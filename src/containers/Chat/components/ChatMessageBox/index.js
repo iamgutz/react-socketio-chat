@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { submitMessage } from '../../actions';
 import { getIsSendingMessage } from '../../selectors';
@@ -31,6 +32,11 @@ const ChatMessageBox = ({
       </button>
     </form>
   );
+};
+
+ChatMessageBox.propTypes = {
+  onSubmitMessage: PropTypes.func.isRequired,
+  isSendingMessage: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -1,5 +1,6 @@
 /* global window */
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSessionUsername } from '../../App/session/selectors';
 import socket, { SOCKET_EMIT_TYPES } from '../../App/socket';
@@ -51,6 +52,14 @@ const Chat = ({
       <ChatMessages />
     </>
   );
+};
+
+Chat.propTypes = {
+  sessionUsername: PropTypes.string.isRequired,
+  onSignOff: PropTypes.func.isRequired,
+  onEnter: PropTypes.func.isRequired,
+  onExit: PropTypes.func.isRequired,
+  onUpdateMessages: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

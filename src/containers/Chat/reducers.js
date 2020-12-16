@@ -1,7 +1,7 @@
 import { createReducer } from 'redux-create-reducer';
 import { ACTIONS } from './constants';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   messages: [],
   isSendingMessage: false,
   sendMessageError: null,
@@ -29,7 +29,7 @@ const setUpdateMessages = (state, { message }) => ({
   messages: [...state.messages, message],
 });
 
-const handlers = {
+export const handlers = {
   [ACTIONS.SEND_MESSAGE]: setSendMessage,
   [ACTIONS.SEND_MESSAGE_SUCCESS]: setSendMessageSuccess,
   [ACTIONS.SEND_MESSAGE_ERROR]: setSendMessageError,

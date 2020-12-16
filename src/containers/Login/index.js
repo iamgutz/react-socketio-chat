@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signIn } from './actions';
 import { getSignInError } from './selectors';
@@ -30,6 +31,15 @@ const Login = ({
       )}
     </form>
   );
+};
+
+Login.propTypes = {
+  onSignIn: PropTypes.func.isRequired,
+  signInError: PropTypes.string,
+};
+
+Login.defaultProps = {
+  signInError: null,
 };
 
 const mapStateToProps = state => ({

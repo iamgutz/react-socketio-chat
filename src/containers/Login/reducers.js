@@ -1,7 +1,7 @@
 import { createReducer } from 'redux-create-reducer';
 import { ACTIONS } from './constants';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   isSigningIn: false,
   isSigningOut: false,
   signInError: null,
@@ -39,7 +39,7 @@ const setSignOutError = (state, { errorMessage }) => ({
   signInError: errorMessage,
 });
 
-const handlers = {
+export const handlers = {
   [ACTIONS.SIGN_IN]: setSignIn,
   [ACTIONS.SIGN_IN_SUCCESS]: setSignInSuccess,
   [ACTIONS.SIGN_IN_ERROR]: setSignInError,

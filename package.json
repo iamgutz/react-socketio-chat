@@ -11,7 +11,20 @@
     "build:serve": "yarn build && yarn server",
     "server": "nodemon server/index.js",
     "lint": "yarn lint:js",
-    "lint:js": "eslint ./src"
+    "lint:js": "eslint ./src",
+    "test": "jest --runInBand"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && CI=true yarn test",
+      "pre-push": ""
+    }
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
@@ -20,6 +33,7 @@
     "history": "^5.0.0",
     "lodash": "^4.17.20",
     "nodemon": "^2.0.6",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -44,6 +58,8 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
-    "html-webpack-plugin": "^4.5.0"
+    "html-webpack-plugin": "^4.5.0",
+    "husky": "^4.3.6",
+    "jest": "^26.6.3"
   }
 }
