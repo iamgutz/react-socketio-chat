@@ -1,4 +1,3 @@
-/* global localStorage */
 import _isEmpty from 'lodash/isEmpty';
 
 export const getFromLocalStorage = key => {

@@ -1,17 +1,13 @@
-/* global window */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSessionUsername } from '../../App/session/selectors';
 import socket, { SOCKET_EMIT_TYPES } from '../../App/socket';
-import { signOff } from '../Login/actions';
 import { initContainer, exitContainer, updateMessages } from './actions';
 import ChatMessageBox from './components/ChatMessageBox';
 import ChatMessages from './components/ChatMessages';
+import TopNav from './components/TopNav';
 
 const Chat = ({
-  sessionUsername,
-  onSignOff,
   onEnter,
   onExit,
   onUpdateMessages,
@@ -44,33 +40,23 @@ const Chat = ({
 
   return (
     <>
-      <button type="button" onClick={onSignOff}>
-        <span>Sign Out</span>
-      </button>
-      <h1>{`Welcome ${sessionUsername}`}</h1>
-      <ChatMessageBox />
+      <TopNav />
       <ChatMessages />
+      <ChatMessageBox />
     </>
   );
 };
 
 Chat.propTypes = {
-  sessionUsername: PropTypes.string.isRequired,
-  onSignOff: PropTypes.func.isRequired,
   onEnter: PropTypes.func.isRequired,
   onExit: PropTypes.func.isRequired,
   onUpdateMessages: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  sessionUsername: getSessionUsername(state),
-});
-
 const mapDispatchToProps = {
-  onSignOff: signOff,
   onEnter: initContainer,
   onExit: exitContainer,
   onUpdateMessages: updateMessages,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default connect(null, mapDispatchToProps)(Chat);
