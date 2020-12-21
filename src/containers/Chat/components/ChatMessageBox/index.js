@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { MdSend } from 'react-icons/md';
+import TextArea from 'components/MultiLineTextInput';
+import IconButton from 'components/IconButton';
 import { submitMessage } from '../../actions';
 import { getIsSendingMessage } from '../../selectors';
+import { ChatMessageBoxWrap } from './styles';
 
 const ChatMessageBox = ({
   onSubmitMessage,
@@ -19,18 +23,30 @@ const ChatMessageBox = ({
     setMessageText('');
   };
 
-  const handleOnInputChange = ({ target }) => {
-    const { value } = target;
+  const handleOnInputChange = value => {
     setMessageText(value);
   };
 
+  const handleOnEnterPress = e => {
+    if ((e.key === 'Enter' && e.metaKey) || (e.key === 'Enter' && e.ctrlKey)) {
+      handleOnSubmit(e);
+    }
+  };
+
   return (
-    <form onSubmit={handleOnSubmit}>
-      <input type="text" value={messageText} onChange={handleOnInputChange} />
-      <button type="submit" disabled={isSendingMessage}>
-        <span>Send</span>
-      </button>
-    </form>
+    <ChatMessageBoxWrap>
+      <TextArea
+        value={messageText}
+        onChange={handleOnInputChange}
+        onKeyDown={handleOnEnterPress}
+        placeholder="Type a message"
+      />
+      <IconButton
+        disabled={isSendingMessage}
+        isLoading={isSendingMessage}
+        icon={MdSend}
+      />
+    </ChatMessageBoxWrap>
   );
 };
 

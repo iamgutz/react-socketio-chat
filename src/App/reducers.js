@@ -3,11 +3,13 @@ import { ACTIONS } from 'containers/Login/constants';
 import loginReducers from 'containers/Login/reducers';
 import chatReducers from 'containers/Chat/reducers';
 import sessionReducer from './session/reducers';
+import settingsReducers from './settings/reducers';
 
 const appReducers = () => combineReducers({
   session: sessionReducer,
   login: loginReducers,
   chat: chatReducers,
+  settings: settingsReducers,
 });
 
 const reducers = browserHistory => (state, action) => {

@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _map from 'lodash/map';
 import { getMessages } from '../../selectors';
+import { ChatMessagesContainer } from './styles';
 
 const ChatMessages = ({
   messages,
 }) => (
-  <div className="message-list">
+  <ChatMessagesContainer>
     {_map(messages, message => (
       <div key={`${message.userId}-${message.timeStamp}`} className="message-item">
         {message.text}
       </div>
     ))}
-  </div>
+  </ChatMessagesContainer>
 );
 
 ChatMessages.propTypes = {

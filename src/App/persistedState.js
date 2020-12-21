@@ -1,7 +1,7 @@
 import { getFromLocalStorage, saveToLocalStorage } from 'utils/localStorage';
 import { getSessionState } from './session/selectors';
 
-export const APP_LOCAL_STORAGE_KEY = 'rsioc:app';
+export const APP_LOCAL_STORAGE_KEY = 'simuchat:app';
 
 const persistedState = getFromLocalStorage(APP_LOCAL_STORAGE_KEY);
 

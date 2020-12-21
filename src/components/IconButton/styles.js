@@ -4,8 +4,10 @@ import { ALTO, GRAY } from 'global/colors';
 export const IconButtonWrap = styled.button`
   border-radius: 50%;
   border: none;
-  width: 2.5rem;
-  height: 2.5rem;
+  min-width: 2.5rem;
+  max-width: 2.5rem;
+  min-height: 2.5rem;
+  max-height: 2.5rem;
   padding: 0.5rem;
   box-sizing: border-box;
   background: none;

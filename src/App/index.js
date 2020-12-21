@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import Chat from '../containers/Chat';
 import Login from '../containers/Login';
 import { initApp } from './actions';
 import { getSessionAuthenticated } from './session/selectors';
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 const App = ({
   isAuthenticated,
@@ -14,10 +21,12 @@ const App = ({
     onEnter();
   }, []);
 
-  if (!isAuthenticated) {
-    return (<Login />);
-  }
-  return (<Chat />);
+  return (
+    <MainContainer>
+      {!isAuthenticated && (<Login />)}
+      {isAuthenticated && (<Chat />)}
+    </MainContainer>
+  );
 };
 
 App.propTypes = {

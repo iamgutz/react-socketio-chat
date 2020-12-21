@@ -1,11 +1,18 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import socket, { SOCKET_EMIT_TYPES } from '../../App/socket';
+import styled from 'styled-components';
+import socket, { SOCKET_EMIT_TYPES } from 'App/socket';
 import { initContainer, exitContainer, updateMessages } from './actions';
 import ChatMessageBox from './components/ChatMessageBox';
 import ChatMessages from './components/ChatMessages';
 import TopNav from './components/TopNav';
+
+const ChatWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 const Chat = ({
   onEnter,
@@ -41,8 +48,10 @@ const Chat = ({
   return (
     <>
       <TopNav />
-      <ChatMessages />
-      <ChatMessageBox />
+      <ChatWrap>
+        <ChatMessages />
+        <ChatMessageBox />
+      </ChatWrap>
     </>
   );
 };
