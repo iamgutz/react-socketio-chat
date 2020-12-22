@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { QUILL_GRAY } from 'global/colors';
 import Chat from '../containers/Chat';
 import Login from '../containers/Login';
 import { initApp } from './actions';
@@ -13,6 +14,7 @@ const MainContainer = styled.div`
   flex: 1;
   height: 100vh;
   overflow: hidden;
+  background: ${QUILL_GRAY};
 `;
 
 const App = ({

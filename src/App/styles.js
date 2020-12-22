@@ -1,5 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
-import { SILVER } from 'global/colors';
+import { IRON, SILVER } from 'global/colors';
 
 const reset = css`
   html,
@@ -109,6 +109,23 @@ const GlobalStyles = createGlobalStyle`
  }
  ::placeholder { /* Most modern browsers support this now. */
   color: ${SILVER};
+ }
+
+ .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: ${IRON} transparent;
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: ${IRON}; 
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
  }
 `;
 

@@ -1,6 +1,35 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import {
+  CERISE_RED, WHITE, DENIM, YELLOW,
+} from 'global/colors';
 
 const bubbleTipSize = 10;
+
+export const bubbleColors = {
+  primary: 'primary',
+  default: 'default',
+};
+
+const primaryColor = css`
+  background: ${CERISE_RED};
+  color: ${WHITE};
+  &::after {
+    border-color: transparent transparent ${CERISE_RED} transparent;
+  }
+`;
+
+const defaultColor = css`
+  background: ${DENIM};
+  color: ${WHITE};
+  &::after {
+    border-color: transparent transparent ${DENIM} transparent;
+  }
+`;
+
+const colors = {
+  [bubbleColors.default]: defaultColor,
+  [bubbleColors.primary]: primaryColor,
+};
 
 export const BubbleRow = styled.div`
   display: flex;
@@ -10,18 +39,42 @@ export const BubbleRow = styled.div`
 
 export const BubbleWrap = styled.div`
   display: flex;
-  align-items: center;
-  max-width: 80%;
+  flex-direction: column;
+  max-width: 70%;
   min-width: 25%;
   width: fit-content;
   min-height: 22px;
+  height: fit-content;
   position: relative;
   background: #000000;
   color: #FFFFFF;
   font-family: Arial;
+  font-size: 0.8125rem;
   border-radius: 10px 10px 10px 0px;
   padding: 0.8rem;
   margin: 0px ${bubbleTipSize}px;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
+  word-break: break-all;
+  letter-spacing: 1px;
+
+  @media(min-width: 1024px) {
+    max-width: 40%;
+  }
+
+  a {
+    color: ${YELLOW};
+  }
+
+  > h4 {
+    margin-bottom: 0.3rem;
+    font-size: 0.93rem;
+  }
+
+  > time {
+    margin-top: 0.3rem;
+    font-size: 0.7rem;
+    text-align: right;
+  }
 
   &::after {
     content: '';
@@ -34,12 +87,31 @@ export const BubbleWrap = styled.div`
     border-color: transparent transparent #000000 transparent;
     bottom: 0;
     left: -${bubbleTipSize}px;
+
+    ${({ right }) => right && `
+      border-width: 0 ${bubbleTipSize}px ${bubbleTipSize}px 0;
+      right: -${bubbleTipSize}px;
+      left: unset;
+    `}
   }
+
+  ${({ right }) => right && `
+    margin-left: auto;
+    border-radius: 10px 10px 0px 10px;
+  `}
+
+  ${({ color }) => color && colors[color]}
 `;
 
 export const Image = styled.img`
   width: 100%;
-  max-height: 75%;
   object-fit: cover;
   object-position: center;
+`;
+
+export const ImageWrap = styled.a`
+  min-height: 3rem;
+  border-radius: 10px 10px 0px 0px;
+  overflow: hidden;
+  margin-bottom: 1rem;
 `;

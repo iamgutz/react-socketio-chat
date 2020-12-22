@@ -34,6 +34,5 @@ export const MultiLineTextInputWrap = styled.div`
     ::-webkit-scrollbar-thumb:hover {
       background: #555; 
     }
-
   }
 `;

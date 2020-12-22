@@ -56,8 +56,8 @@ const Chat = ({
 
   return (
     <>
-      <TopNav />
       <ChatContainer>
+        <TopNav />
         <ChatMessages
           setChatScrollElemRef={setChatScrollElemRef}
         />

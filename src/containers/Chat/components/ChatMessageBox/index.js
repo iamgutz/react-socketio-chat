@@ -19,8 +19,7 @@ const ChatMessageBox = ({
 }) => {
   const [messageText, setMessageText] = useState('');
 
-  const handleOnSubmit = e => {
-    e.preventDefault();
+  const handleOnSubmit = () => {
     if (!messageText) {
       return;
     }
@@ -39,7 +38,8 @@ const ChatMessageBox = ({
       : useEnterSubmit;
 
     if (submitControlValidation(e)) {
-      handleOnSubmit(e);
+      e.preventDefault();
+      handleOnSubmit();
     }
   };
 
@@ -55,6 +55,7 @@ const ChatMessageBox = ({
         disabled={isSendingMessage}
         isLoading={isSendingMessage}
         icon={MdSend}
+        onClick={handleOnSubmit}
       />
     </ChatMessageBoxWrap>
   );

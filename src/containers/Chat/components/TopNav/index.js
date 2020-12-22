@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { getSessionUsername } from 'App/session/selectors';
+import { ReactComponent as RechatLogo } from 'assets/svg/rechat-logo.svg';
 import IconButton from 'components/IconButton';
 import { signOff } from 'containers/Login/actions';
 import {
@@ -37,6 +38,7 @@ const TopNav = ({
 
   return (
     <TopNavWrap>
+      <RechatLogo />
       <MenuWrap ref={setMenuWrapperRef}>
         <IconButton
           icon={BsThreeDotsVertical}

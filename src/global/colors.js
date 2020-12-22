@@ -1,6 +1,14 @@
+export const ALABASTER = '#FAFAFA';
 export const ALTO = '#D8D8D8';
+export const BLACK = '#000000';
+export const CERISE_RED = '#E22A71';
+export const DENIM = '#0E6EC7';
+export const FIORD = '#464e67';
 export const GALLERY = '#EAEAEA';
 export const GRAY = '#919191';
+export const GREYSER = '#DEE7E8';
 export const IRON = '#D4D7D9';
+export const QUILL_GRAY = '#DBDBD4';
 export const SILVER = '#C0C0C0';
 export const WHITE = '#ffffff';
+export const YELLOW = '#faff00';
