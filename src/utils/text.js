@@ -4,7 +4,7 @@ const lineBreakRegex = /\n/g;
 const htmlRegex = /(<([^>]+)>)/gi;
 
 export const formatTextWithLinks = text => {
-  const newText = text.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
+  const newText = text.replace(urlRegex, '<br /><a href="$1" target="_blank">$1</a><br />');
   return newText;
 };
 

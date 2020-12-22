@@ -24,6 +24,19 @@ app.get('/', (req, res) => {
 io.on('connection', socket => {
   console.log('socket.io client connected!');
 
+  socket.on('validate_username', ({ username }, callback) => {
+    const response = members.checkAvailableUsername(username);
+    const { error } = response;
+
+    if (error) {
+      console.log('Invalid username: ', error);
+      return callback(response);
+    }
+
+    console.log('Valid username:', username);
+    return callback(response);
+  });
+
   socket.on('join', ({ username }, callback) => {
     const response = members.addMember(username, socket.id);
     const { error } = response;

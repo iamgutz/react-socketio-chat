@@ -1,22 +1,21 @@
 import {
   put, all, takeEvery, call, select,
 } from 'redux-saga/effects';
-import socket, { SOCKET_EMIT_TYPES, SOCKET_EMIT_ERROR } from 'App/socket';
+import { SOCKET_EMIT_TYPES, SOCKET_EMIT_ERROR, socketEmit } from 'App/socket';
 import { getSessionUsername } from 'App/session/selectors';
+import { SETTINGS_LOCAL_STORAGE_KEY } from 'App/settings/constants';
+import { getFromLocalStorage } from 'utils/localStorage';
+import { setSettings } from 'App/settings/actions';
 import {
   chatConnect, chatDisconnect, sendMessage, sendMessageError, sendMessageSuccess,
 } from './actions';
 import { ACTIONS } from './constants';
 
-const socketEmit = async (emitType, params) => new Promise(resolve => {
-  socket.emit(emitType, params, response => {
-    resolve(response);
-  });
-});
-
 function* initContainerWatcher() {
   const sessionUsername = yield select(getSessionUsername);
   yield put(chatConnect(sessionUsername));
+  const storedState = getFromLocalStorage(SETTINGS_LOCAL_STORAGE_KEY(sessionUsername));
+  yield put(setSettings(storedState));
 }
 
 function* exitContainerWatcher() {

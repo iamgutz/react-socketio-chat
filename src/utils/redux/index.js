@@ -35,7 +35,7 @@ export const createLocalStorageReducer = (reducer, key) => {
 
     let reducerState = _isEqual(state, expectedState) ? state : expectedState;
 
-    if (typeof state === 'undefined') {
+    if (typeof state === 'undefined' || _isEmpty(reducerState)) {
       const defaultState = reducer(undefined, {});
       reducerState = {
         ...defaultState,

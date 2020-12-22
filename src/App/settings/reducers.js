@@ -12,6 +12,11 @@ export const INITIAL_STATE = {
   messageSubmitControls: MESSAGE_SUBMIT_CONTROLS.NORMAL,
 };
 
+const updateSettings = (state, { settings }) => ({
+  ...INITIAL_STATE,
+  ...settings,
+});
+
 const updateClockFormat = (state, { clockFormat }) => ({
   ...state,
   clockFormat,
@@ -27,12 +32,13 @@ const resetState = () => ({
 });
 
 export const handlers = {
+  [ACTIONS.SET_SETTINGS]: updateSettings,
   [ACTIONS.SET_CLOCK_FORMAT]: updateClockFormat,
   [ACTIONS.SET_MESSAGE_SUBMIT_CONTROLS]: updateMessageSubmitControls,
   [ACTIONS.RESET_STATE]: resetState,
 };
 
-const settingsReducers = (state, action) => {
+const settingsReducers = (state = {}, action) => {
   const storedSessionUserName = _get(getFromLocalStorage(APP_LOCAL_STORAGE_KEY), 'session.username');
 
   return createLocalStorageReducer(

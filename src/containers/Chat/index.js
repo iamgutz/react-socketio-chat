@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import socket, { SOCKET_EMIT_TYPES } from 'App/socket';
@@ -8,6 +8,7 @@ import ChatMessages from './components/ChatMessages';
 import TopNav from './components/TopNav';
 import { ChatContainer } from './styles';
 import { getMessages } from './selectors';
+import SettingsModal from './components/SettingsModal';
 
 const Chat = ({
   onEnter,
@@ -15,6 +16,7 @@ const Chat = ({
   onUpdateMessages,
   messages,
 }) => {
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const chatScrollElemRef = useRef();
 
   const setChatScrollElemRef = node => {
@@ -57,12 +59,16 @@ const Chat = ({
   return (
     <>
       <ChatContainer>
-        <TopNav />
+        <TopNav onSettings={setShowSettingsModal} />
         <ChatMessages
           setChatScrollElemRef={setChatScrollElemRef}
         />
         <ChatMessageBox />
       </ChatContainer>
+      <SettingsModal
+        showSettingsModal={showSettingsModal}
+        setShowSettingsModal={setShowSettingsModal}
+      />
     </>
   );
 };

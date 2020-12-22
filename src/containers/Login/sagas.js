@@ -1,14 +1,33 @@
 import {
-  put, all, takeEvery, select,
+  put, all, takeEvery, select, call,
 } from 'redux-saga/effects';
 import { setSession } from 'App/session/actions';
+import { socketEmit, SOCKET_EMIT_ERROR, SOCKET_EMIT_TYPES } from 'App/socket';
 import {
-  signInError, signInSuccess, signOffError, signOffSuccess,
+  signInError, signInSuccess, signOffError, signOffSuccess, validateUsername,
 } from './actions';
 import { ACTIONS } from './constants';
 import { clearSession } from '../../App/session/actions';
 import { getSessionUsername } from '../../App/session/selectors';
-import { chatConnect, chatDisconnect } from '../Chat/actions';
+import { chatDisconnect } from '../Chat/actions';
+
+function* validateUsernameWatcher({ username, successActionCallback, errorActionCallback }) {
+  const response = yield call(socketEmit, SOCKET_EMIT_TYPES.VALIDATE_USERNAME, { username });
+  const { error } = response;
+
+  if (error) {
+    if (errorActionCallback) {
+      yield put(errorActionCallback(error));
+    }
+    // eslint-disable-next-line no-console
+    console.log(`${SOCKET_EMIT_ERROR(SOCKET_EMIT_TYPES.VALIDATE_USERNAME)}: `, error);
+    return;
+  }
+
+  if (successActionCallback) {
+    yield put(successActionCallback(response));
+  }
+}
 
 function* signInWatcher({ data }) {
   const { username } = data;
@@ -18,13 +37,12 @@ function* signInWatcher({ data }) {
     return;
   }
 
-  yield put(chatConnect(username, signInSuccess, signInError));
+  yield put(validateUsername(username, signInSuccess, signInError));
 }
 
 function* signInSuccessWatcher({ payload }) {
-  const { result: { username, id } } = payload;
+  const { result: { username } } = payload;
   yield put(setSession({
-    id,
     username,
     authenticated: true,
   }));
@@ -41,5 +59,6 @@ export default function* loginSagas() {
     takeEvery(ACTIONS.SIGN_IN, signInWatcher),
     takeEvery(ACTIONS.SIGN_IN_SUCCESS, signInSuccessWatcher),
     takeEvery(ACTIONS.SIGN_OFF, signOffWatcher),
+    takeEvery(ACTIONS.VALIDATE_USERNAME, validateUsernameWatcher),
   ]);
 }

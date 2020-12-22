@@ -57,9 +57,20 @@ const findMemberById = id => {
   return formatResponseData(true, member);
 };
 
+const checkAvailableUsername = username => {
+  const member = _find(membersList, { username });
+
+  if (!member) {
+    return formatResponseData(true, { username });
+  }
+
+  return formatResponseData(false, `member with username ${username} already exists.`);
+};
+
 module.exports = {
   getChatMembers,
   addMember,
   removeMember,
   findMemberById,
+  checkAvailableUsername,
 };

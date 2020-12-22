@@ -4,7 +4,6 @@ import { ACTIONS } from './constants';
 export const INITIAL_STATE = {
   authenticated: false,
   username: null,
-  id: null,
 };
 
 const setLoggedIn = (state, { payload }) => ({

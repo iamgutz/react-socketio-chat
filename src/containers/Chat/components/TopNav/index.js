@@ -13,6 +13,7 @@ import {
 const TopNav = ({
   onSignOff,
   sessionUsername,
+  onSettings,
 }) => {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -26,6 +27,11 @@ const TopNav = ({
     if (menuWrapperRef && !menuWrapperRef.current.contains(e.target)) {
       setShowMenu(false);
     }
+  };
+
+  const handleOnClickSettings = () => {
+    setShowMenu(false);
+    onSettings(true);
   };
 
   useEffect(() => {
@@ -51,7 +57,7 @@ const TopNav = ({
               <strong>{sessionUsername}</strong>
             </h5>
             <MenuItemList>
-              <MenuItem>Settings</MenuItem>
+              <MenuItem onClick={handleOnClickSettings}>Settings</MenuItem>
               <MenuItem onClick={onSignOff}>Logout</MenuItem>
             </MenuItemList>
           </MenuDropDown>
@@ -64,6 +70,7 @@ const TopNav = ({
 TopNav.propTypes = {
   onSignOff: PropTypes.func.isRequired,
   sessionUsername: PropTypes.string.isRequired,
+  onSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
