@@ -54,7 +54,7 @@ const MultiLineTextInput = ({
   }, [value]);
 
   return (
-    <MultiLineTextInputWrap>
+    <MultiLineTextInputWrap rows={textAreaProps.rows}>
       <textarea
         {...restProps}
         value={value}

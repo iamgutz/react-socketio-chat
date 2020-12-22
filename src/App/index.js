@@ -10,7 +10,9 @@ import { getSessionAuthenticated } from './session/selectors';
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
+  height: 100vh;
+  overflow: hidden;
 `;
 
 const App = ({

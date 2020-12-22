@@ -1,4 +1,4 @@
-import { WHITE } from 'global/colors';
+import { IRON, WHITE } from 'global/colors';
 import styled from 'styled-components';
 
 export const MultiLineTextInputWrap = styled.div`
@@ -19,5 +19,21 @@ export const MultiLineTextInputWrap = styled.div`
     font-size: 1rem;
     font-family: Arial;
     outline: none;
+    height: ${({ rows }) => (rows ? `${rows}.2rem` : '1.2rem')};
+    scrollbar-width: ${({ rows }) => (rows > 5 ? 'thin' : 'none')};
+    scrollbar-color: ${IRON} ${WHITE};
+    ::-webkit-scrollbar {
+      width: ${({ rows }) => (rows > 5 ? '7px' : '0px')};
+    }
+    ::-webkit-scrollbar-track {
+      background: ${WHITE}; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: ${IRON}; 
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+
   }
 `;

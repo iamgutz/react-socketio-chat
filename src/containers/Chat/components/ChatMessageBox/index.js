@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MdSend } from 'react-icons/md';
+import { getMessageSubmitControls } from 'App/settings/selectors';
+import { MESSAGE_SUBMIT_CONTROLS } from 'App/settings/constants';
 import TextArea from 'components/MultiLineTextInput';
 import IconButton from 'components/IconButton';
 import { submitMessage } from '../../actions';
 import { getIsSendingMessage } from '../../selectors';
 import { ChatMessageBoxWrap } from './styles';
+import { useCtrlEnterSubmit, useEnterSubmit } from './helpers';
 
 const ChatMessageBox = ({
   onSubmitMessage,
   isSendingMessage,
+  messageSubmitControls,
+  onMessageSent,
 }) => {
   const [messageText, setMessageText] = useState('');
 
@@ -21,6 +26,7 @@ const ChatMessageBox = ({
     }
     onSubmitMessage(messageText);
     setMessageText('');
+    onMessageSent();
   };
 
   const handleOnInputChange = value => {
@@ -28,7 +34,11 @@ const ChatMessageBox = ({
   };
 
   const handleOnEnterPress = e => {
-    if ((e.key === 'Enter' && e.metaKey) || (e.key === 'Enter' && e.ctrlKey)) {
+    const submitControlValidation = messageSubmitControls === MESSAGE_SUBMIT_CONTROLS.SPECIAL
+      ? useCtrlEnterSubmit
+      : useEnterSubmit;
+
+    if (submitControlValidation(e)) {
       handleOnSubmit(e);
     }
   };
@@ -53,10 +63,17 @@ const ChatMessageBox = ({
 ChatMessageBox.propTypes = {
   onSubmitMessage: PropTypes.func.isRequired,
   isSendingMessage: PropTypes.bool.isRequired,
+  onMessageSent: PropTypes.func,
+  messageSubmitControls: PropTypes.string.isRequired,
+};
+
+ChatMessageBox.defaultProps = {
+  onMessageSent() {},
 };
 
 const mapStateToProps = state => ({
   isSendingMessage: getIsSendingMessage(state),
+  messageSubmitControls: getMessageSubmitControls(state),
 });
 
 const mapDispatchToProps = {

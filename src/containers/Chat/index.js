@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import socket, { SOCKET_EMIT_TYPES } from 'App/socket';
 import { initContainer, exitContainer, updateMessages } from './actions';
 import ChatMessageBox from './components/ChatMessageBox';
 import ChatMessages from './components/ChatMessages';
 import TopNav from './components/TopNav';
-
-const ChatWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
+import { ChatContainer } from './styles';
+import { getMessages } from './selectors';
 
 const Chat = ({
   onEnter,
   onExit,
   onUpdateMessages,
+  messages,
 }) => {
+  const chatScrollElemRef = useRef();
+
+  const setChatScrollElemRef = node => {
+    chatScrollElemRef.current = node;
+  };
+
   const beforeUnload = () => {
     window.addEventListener('beforeunload', () => {
       onExit();
@@ -45,13 +47,22 @@ const Chat = ({
     };
   }, []);
 
+  useEffect(() => {
+    // scroll down when new message was sent/received
+    if (messages.length) {
+      chatScrollElemRef.current.scrollTop = chatScrollElemRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <>
       <TopNav />
-      <ChatWrap>
-        <ChatMessages />
+      <ChatContainer>
+        <ChatMessages
+          setChatScrollElemRef={setChatScrollElemRef}
+        />
         <ChatMessageBox />
-      </ChatWrap>
+      </ChatContainer>
     </>
   );
 };
@@ -60,7 +71,12 @@ Chat.propTypes = {
   onEnter: PropTypes.func.isRequired,
   onExit: PropTypes.func.isRequired,
   onUpdateMessages: PropTypes.func.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
+
+const mapStateToProps = state => ({
+  messages: getMessages(state),
+});
 
 const mapDispatchToProps = {
   onEnter: initContainer,
@@ -68,4 +84,4 @@ const mapDispatchToProps = {
   onUpdateMessages: updateMessages,
 };
 
-export default connect(null, mapDispatchToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

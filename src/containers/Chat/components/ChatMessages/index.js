@@ -2,23 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _map from 'lodash/map';
+import Bubble from 'components/Bubble';
 import { getMessages } from '../../selectors';
-import { ChatMessagesContainer } from './styles';
+import { ChatMessagesWrap, ChatMessagesRow } from './styles';
 
 const ChatMessages = ({
   messages,
+  setChatScrollElemRef,
 }) => (
-  <ChatMessagesContainer>
-    {_map(messages, message => (
-      <div key={`${message.userId}-${message.timeStamp}`} className="message-item">
-        {message.text}
-      </div>
-    ))}
-  </ChatMessagesContainer>
+  <ChatMessagesRow ref={setChatScrollElemRef}>
+    <ChatMessagesWrap>
+      {_map(messages, message => (
+        <Bubble
+          key={`${message.userId}-${message.timeStamp}`}
+          text={message.text}
+        />
+      ))}
+    </ChatMessagesWrap>
+  </ChatMessagesRow>
 );
 
 ChatMessages.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  setChatScrollElemRef: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
