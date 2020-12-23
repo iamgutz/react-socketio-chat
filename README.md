@@ -1,6 +1,9 @@
 # react-socketio-chat
 Responsive Chat Webapp built with React, Socket.io and NodeJS
 
+## Key Features
+:white_check_mark: Real-time messages
+
 ## How to Use
 To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/) and [Yarn](https://classic.yarnpkg.com/en/docs/install) installed on your computer. From your command line:
 
