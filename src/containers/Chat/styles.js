@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { FIORD } from 'global/colors';
+import { BIG_STONE, LINK_WATER } from 'global/colors';
+import { genericBorder } from 'global/styleHelpers';
 
 export const ChatContainer = styled.div`
   display: flex;
@@ -8,7 +9,6 @@ export const ChatContainer = styled.div`
   max-height: 100%;
   min-height: 0;
   width: 100%;
-  max-width: 1280px;
   margin: auto;
   overflow: auto;
   box-sizing: border-box;
@@ -16,16 +16,27 @@ export const ChatContainer = styled.div`
   @media(min-width: 1280px) {
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2);
     margin: 1rem auto;
+    max-width: 80%;
+  }
+
+  @media(min-width: 1280px) {
   }
 
   &::before {
     content: '';
     width: 100%;
     height: 10rem;
-    background: ${FIORD};
+    background: ${LINK_WATER};
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
+    ${({ backgroundImage }) => backgroundImage && `
+      background-image: url('${backgroundImage}');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 100% 2px;
+      border-bottom: ${genericBorder(BIG_STONE, '2px')}
+    `}
   }
 `;

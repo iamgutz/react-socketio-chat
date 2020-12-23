@@ -57,6 +57,16 @@ const findMemberById = id => {
   return formatResponseData(true, member);
 };
 
+const findMemberByUsername = username => {
+  const member = _find(membersList, { username });
+
+  if (!member) {
+    return formatResponseData(false, `member with username ${username} not found.`);
+  }
+
+  return formatResponseData(true, member);
+};
+
 const checkAvailableUsername = username => {
   const member = _find(membersList, { username });
 
@@ -72,5 +82,6 @@ module.exports = {
   addMember,
   removeMember,
   findMemberById,
+  findMemberByUsername,
   checkAvailableUsername,
 };

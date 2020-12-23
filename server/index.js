@@ -41,13 +41,14 @@ io.on('connection', socket => {
     const response = members.addMember(username, socket.id);
     const { error } = response;
 
+    console.log('Chat members:', members.getChatMembers());
+
     if (error) {
       console.log('Connection error :', error);
       return callback(response);
     }
 
     console.log('User connected:', username);
-    console.log('Chat members:', members.getChatMembers());
     return callback(response);
   });
 
@@ -65,8 +66,8 @@ io.on('connection', socket => {
     return callback(response);
   });
 
-  socket.on('chat_message', (message, callback) => {
-    const response = members.findMemberById(socket.id);
+  socket.on('chat_message', ({ message, username }, callback) => {
+    const response = members.findMemberByUsername(username);
     const { error, result: user } = response;
 
     if (error) {

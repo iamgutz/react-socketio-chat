@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import withImageLoader from 'react-image-loader-hoc';
 import { captureImageUrl, formatText } from './helpers';
@@ -16,12 +16,20 @@ const Bubble = ({
   sender,
   time,
 }) => {
+  const [visible, setVisible] = useState(false);
+
   const imageUrl = captureImageUrl(text);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
+
   return (
     <BubbleRow>
       <BubbleWrap
         right={right}
         color={color}
+        visible={visible}
       >
         {sender && (
           <h4>{sender}</h4>

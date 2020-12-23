@@ -1,9 +1,31 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import {
-  CERISE_RED, WHITE, DENIM, YELLOW,
+  WHITE, YELLOW, DISCO, RED_ORANGE,
 } from 'global/colors';
 
 const bubbleTipSize = 10;
+
+const expandBounce = keyframes`
+  0% {
+    transform: translateY(0) scaleY(0);
+  }
+  30% {
+    transform: translateY(75%) scaleY(0.6);
+  }
+  75% {
+    transform: translateY(100%);
+  }
+  85% {
+    transform: translateY(50%) scaleY(1.25);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+`;
+
+const animationIn = css`
+  ${expandBounce} 0.3s ease-out forwards;
+`;
 
 export const bubbleColors = {
   primary: 'primary',
@@ -11,18 +33,18 @@ export const bubbleColors = {
 };
 
 const primaryColor = css`
-  background: ${CERISE_RED};
+  background: ${DISCO};
   color: ${WHITE};
   &::after {
-    border-color: transparent transparent ${CERISE_RED} transparent;
+    border-color: transparent transparent ${DISCO} transparent;
   }
 `;
 
 const defaultColor = css`
-  background: ${DENIM};
+  background: ${RED_ORANGE};
   color: ${WHITE};
   &::after {
-    border-color: transparent transparent ${DENIM} transparent;
+    border-color: transparent transparent ${RED_ORANGE} transparent;
   }
 `;
 
@@ -56,6 +78,11 @@ export const BubbleWrap = styled.div`
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3);
   word-break: break-all;
   letter-spacing: 1px;
+
+  transform: translateY(100%) scale(0);
+  ${({ visible }) => visible && css`
+    animation: ${animationIn};
+  `}
 
   @media(min-width: 1024px) {
     max-width: 40%;

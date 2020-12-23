@@ -1,5 +1,5 @@
-import { CERISE_RED } from 'global/colors';
 import styled from 'styled-components';
+import { RED_ORANGE } from 'global/colors';
 
 export const RadioButtonWrap = styled.div`
   position: relative;
@@ -18,7 +18,7 @@ export const RadioButtonWrap = styled.div`
   }
   > svg {
     font-size: 1.5rem;
-    color: ${CERISE_RED};
+    color: ${RED_ORANGE};
   }
   > label {
     font-size: 0.8175rem;

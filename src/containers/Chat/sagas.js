@@ -60,11 +60,14 @@ function* chatDisconnectWatcher({ username, successActionCallback, errorActionCa
 }
 
 function* submitMessageWatcher({ message }) {
-  yield put(sendMessage(message, sendMessageSuccess, sendMessageError));
+  const sessionUsername = yield select(getSessionUsername);
+  yield put(sendMessage(message, sessionUsername, sendMessageSuccess, sendMessageError));
 }
 
-function* sendMessageWatcher({ message, successActionCallback, errorActionCallback }) {
-  const response = yield call(socketEmit, SOCKET_EMIT_TYPES.CHAT_MESSAGE, message);
+function* sendMessageWatcher({
+  message, username, successActionCallback, errorActionCallback,
+}) {
+  const response = yield call(socketEmit, SOCKET_EMIT_TYPES.CHAT_MESSAGE, { message, username });
   const { error } = response;
 
   if (error) {

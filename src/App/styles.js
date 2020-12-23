@@ -127,6 +127,15 @@ const GlobalStyles = createGlobalStyle`
       background: #555; 
     }
  }
+
+ form {
+   width: 100%;
+   box-sizing: border-box;
+ }
+
+ button {
+   cursor: pointer;
+ }
 `;
 
 export default GlobalStyles;

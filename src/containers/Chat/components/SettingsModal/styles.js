@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CERISE_RED, WHITE } from 'global/colors';
+import { RED_ORANGE, WHITE } from 'global/colors';
 
 export const SettingsWrap = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ export const ResetButton = styled.button`
   border-radius: 4px;
   transition: background .2s ease-in-out, color .2s ease-in-out;
   &:hover {
-    background: ${CERISE_RED};
+    background: ${RED_ORANGE};
     color: ${WHITE};
   }
 `;

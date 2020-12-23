@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import socket, { SOCKET_EMIT_TYPES } from 'App/socket';
+import manSocialNetworking from 'assets/svg/man-social-networking.svg';
 import { initContainer, exitContainer, updateMessages } from './actions';
 import ChatMessageBox from './components/ChatMessageBox';
 import ChatMessages from './components/ChatMessages';
@@ -58,7 +59,7 @@ const Chat = ({
 
   return (
     <>
-      <ChatContainer>
+      <ChatContainer backgroundImage={manSocialNetworking}>
         <TopNav onSettings={setShowSettingsModal} />
         <ChatMessages
           setChatScrollElemRef={setChatScrollElemRef}
