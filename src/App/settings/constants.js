@@ -22,5 +22,5 @@ export const SETTINGS_LOCAL_STORAGE_KEY = username => {
   if (_isEmpty(username)) {
     return undefined;
   }
-  return `${APP_LOCAL_STORAGE_KEY}:chat_settings:${username}`;
+  return `${APP_LOCAL_STORAGE_KEY}:settings:${username}`;
 };

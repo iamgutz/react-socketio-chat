@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ReactComponent as ManSocialNetworking } from 'assets/svg/man-social-networking.svg';
@@ -14,6 +14,7 @@ const Login = ({
   onSignIn,
   signInError,
 }) => {
+  const [animateIn, setAnimateIn] = useState(false);
   const [username, setUsername] = useState('');
 
   const handleOnSubmit = e => {
@@ -26,9 +27,13 @@ const Login = ({
     setUsername(value);
   };
 
+  useEffect(() => {
+    setAnimateIn(true);
+  }, []);
+
   return (
-    <LoginWrap>
-      <LogoWrap>
+    <LoginWrap animateIn={animateIn}>
+      <LogoWrap animateIn={animateIn}>
         <RechatLogo />
       </LogoWrap>
       <ManSocialNetworking />

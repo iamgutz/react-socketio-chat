@@ -74,7 +74,7 @@ const checkAvailableUsername = username => {
     return formatResponseData(true, { username });
   }
 
-  return formatResponseData(false, `member with username ${username} already exists.`);
+  return formatResponseData(false, `We have an active member called "${username}". Try using another name.`);
 };
 
 module.exports = {
