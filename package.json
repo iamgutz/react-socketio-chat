@@ -1,9 +1,9 @@
 {
-  "name": "react-socketio-chat",
+  "name": "rechat",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/iamgutz/react-socketio-chat.git",
-  "author": "Michael Gutierrez <iamgutz@gmail.com>",
+  "repository": "https://github.com/iamgutz/rechat.git",
+  "author": "Michael Gutiérrez <npmgutz@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --mode development --env=development --open --hot --port 9000",
